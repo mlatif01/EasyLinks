@@ -1,2 +1,2 @@
 # LatifLauncher
-Quick launch extension
+Quick launch chrome extension for easily accessing useful resources!
