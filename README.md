@@ -1,2 +1,2 @@
 # LatifLauncher
-Quick launch social media
+Quick launch extension
