@@ -1,6 +1,23 @@
+
 const newBtn = document.querySelector('.btn-new');
 const modalIcons = document.querySelector('.modal-icons');
 const modalHeader = document.querySelector('.modal-header');
+
+refreshList();
+
+// update icons on the screen
+function refreshList() {
+    getLinks().then(
+        data => {
+            data.forEach(element => {
+                addIcon(element.url, element.icon);
+            });
+        },
+        error => {
+            console.log('error: ', error)
+        }
+    );
+}
 
 function toggleNewButton() {
     newBtn.style.display === "none" ? newBtn.style.display = "block" : newBtn.style.display = "none";
@@ -25,7 +42,7 @@ function createInputBoxes() {
                                     <button type='button' class='btn btn-success btn-add'>Add</button>`;
     // finally put it where it needs to appear
     document.getElementById("newElementId").appendChild(txtNewInputBox);
-    // create addBtn variable and assign event listener to click event
+    // create addBtn variable and assign event listener to click event 
     window.addBtn = document.querySelector('.btn-add');
     window.addBtn.addEventListener('click', addItem);
 }
@@ -43,15 +60,15 @@ function resetModalContent() {
     newBtn.style.display = "block";
 }
 
-// creates icon elements
-function addItem() {
-    const urlBox = document.getElementById('inputBox');
-    const iconBox = document.getElementById('selectBox');
+function addIcon(url, icon) {
+    // get string values of the url and icon
+    const urlVal = url;
+    const iconVal = icon;
     // create div with id of flex
     const newIconDiv = document.createElement('div');
     newIconDiv.className = 'flex';
     // add url value and icon value
-    newIconDiv.innerHTML = `<a href='${urlBox.value}' target='_blank'><i class='${checkIcon(iconBox.value)}'></i></a>`;
+    newIconDiv.innerHTML = `<a href='${urlVal}' target='_blank'><i class='${getIcon(iconVal)}'></i></a>`;
     console.log(newIconDiv);
     // finally put it where it needs to appear in the flex container div
     document.querySelector('.flex-container').appendChild(newIconDiv);
@@ -59,8 +76,33 @@ function addItem() {
     resetModalContent();
 }
 
+// this function gets the url and icon value and posts it to the db.json
+function addItem() {
+    const urlBox = document.getElementById('inputBox');
+    const iconBox = document.getElementById('selectBox');
+    const urlVal = urlBox.value;
+    const iconVal = iconBox.value;
+    postLink(urlVal, iconVal);
+}
+
+function postLink(urlVal, iconVal) {
+        // post to db
+        let link = {
+            id: urlVal,
+            icon: iconVal
+        };
+    
+        let promise = $.post(
+            "http://localhost:3000/links", link
+        );
+        promise.then(
+            data => console.log('data: ', data),
+            error => console.log('error: ', error)
+        );
+}
+
 // takes in an icon value and returns the appropriate font awesome icon class
-function checkIcon(iconValue) {
+function getIcon(iconValue) {
     switch(iconValue) {
         case "website":
             return "fa fa-globe";
@@ -75,9 +117,18 @@ function checkIcon(iconValue) {
     }
 }
 
+function getLinks() {
+    let promise = $.get(
+        "http://localhost:3000/links"
+    );
+    promise.then(
+        data => console.log('data: ', data),
+        error => console.log('error: ', error)
+    );
+    return promise;
+}
+
 // Event Listeners
 newBtn.addEventListener('click', createInputBoxes);
 modalIcons.addEventListener('click', resetModalContent);
 modalHeader.addEventListener('click', resetModalContent);
-
-
