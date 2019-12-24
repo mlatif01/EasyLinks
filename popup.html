@@ -92,7 +92,20 @@
 
         .btn {
             width: 50px;
-            margin-left: 100px;
+            height: 30px;
+        }
+
+        .btn-new {
+            margin-left: 80px;
+            margin-right: 20px;
+            margin-top: 7px;
+        }
+
+        .btn-del {
+            width: 30px;
+            height: 30px;
+            margin-top: 7px;
+            margin-left: 3px;
         }
 
         .btn-add {
@@ -101,6 +114,10 @@
 
         .input {
             margin: 10px;
+        }
+
+        p {
+            margin-top: 10px;
         }
 
     </style>
@@ -113,8 +130,9 @@
         </h1>
     </div>
     <div class="modal-content">
-        <p>Easily access useful stuff!</p>
+        <p>Easily access resources!</p>
         <button type="button" class="btn btn-primary btn-new">New</button>
+        <button type="button" class="btn btn-danger btn-del">X</button>
         <div id="newElementId"></div>
     </div>
     <div class="modal-icons">
