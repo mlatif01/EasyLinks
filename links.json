@@ -1,14 +1,19 @@
 {
   "links": [
     {
-      "url": "saf",
-      "icon": "website",
+      "url": "https://www.reddit.com/user/mirato89/m/dev/",
+      "icon": "reddit",
       "id": 1
     },
     {
-      "url": "asf",
-      "icon": "reddit",
+      "url": "http://miladlatif89.epizy.com/",
+      "icon": "portfolio",
       "id": 2
+    },
+    {
+      "url": "https://github.com/mlatif01",
+      "icon": "github",
+      "id": 4
     }
   ]
 }
